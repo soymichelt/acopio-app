@@ -19,7 +19,7 @@ namespace Acopio.Repository.Entities
 
         public Guid ProductorId { get; set; }
 
-        public Int16 ComarcaId { get; set; }
+        public int ComarcaId { get; set; }
 
         public Finca()
         {

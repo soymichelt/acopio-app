@@ -11,7 +11,7 @@ namespace Acopio.Repository.Entities
     public class Departamento
     {
         
-        public sbyte DepartamentId { get; set; }
+        public byte DepartamentId { get; set; }
         
         public string DepartamentoNombre { get; set; }
 

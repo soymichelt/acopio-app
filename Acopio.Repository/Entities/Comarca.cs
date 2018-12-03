@@ -11,11 +11,11 @@ namespace Acopio.Repository.Entities
     public class Comarca
     {
 
-        public UInt16 ComarcaId { get; set; }
+        public int ComarcaId { get; set; }
 
         public string ComarcaNombre { get; set; }
 
-        public sbyte MunicipioId { get; set; }
+        public byte MunicipioId { get; set; }
 
         public Comarca()
         {

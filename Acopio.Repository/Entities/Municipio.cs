@@ -11,11 +11,11 @@ namespace Acopio.Repository.Entities
     public class Municipio
     {
 
-        public sbyte MunicipioId { get; set; }
+        public byte MunicipioId { get; set; }
 
         public string MunicipioNombre { get; set; }
 
-        public sbyte DepartamentoId { get; set; }
+        public byte DepartamentoId { get; set; }
 
         public Municipio()
         {

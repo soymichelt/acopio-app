@@ -14,7 +14,7 @@ namespace Acopio.Repository
     {
 
         public AcopioDb() :
-            base ("")
+            base ("name=DefaultConnection")
         { }
 
         public DbSet<Acopio.Repository.Entities.Acopio> Acopios { get; set; }

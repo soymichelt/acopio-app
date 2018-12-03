@@ -24,7 +24,7 @@ namespace Acopio.Repository.Entities
 
         public decimal PrecioUnitario { get; set; }
 
-        public decimal CantidadVacasOrdeñadas { get; set; }
+        public int CantidadVacasOrdeñadas { get; set; }
 
 
         public virtual Finca Finca { get; set; }
