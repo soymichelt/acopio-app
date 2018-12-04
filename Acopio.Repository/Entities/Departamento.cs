@@ -11,7 +11,7 @@ namespace Acopio.Repository.Entities
     public class Departamento
     {
         
-        public byte DepartamentId { get; set; }
+        public byte DepartamentoId { get; set; }
         
         public string DepartamentoNombre { get; set; }
 
@@ -34,7 +34,7 @@ namespace Acopio.Repository.Entities
 
             this.ToTable("tblDepartamentos");
 
-            this.HasKey(c => c.DepartamentId);
+            this.HasKey(c => c.DepartamentoId);
 
             this.Property(c => c.DepartamentoNombre)
                 .HasColumnType("varchar")
