@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FincaListView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FincaListView.Designer.cs">
+      <DependentUpon>FincaListView.cs</DependentUpon>
+    </Compile>
     <Compile Include="FincaView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FincaListView.resx">
+      <DependentUpon>FincaListView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FincaView.resx">
       <DependentUpon>FincaView.cs</DependentUpon>
     </EmbeddedResource>
