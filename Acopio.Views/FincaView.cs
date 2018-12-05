@@ -15,6 +15,9 @@ namespace Acopio.Views
 {
     public partial class FincaView : Form
     {
+
+        private Boolean formIsLoaded;
+
         public FincaView()
         {
             InitializeComponent();
@@ -22,26 +25,8 @@ namespace Acopio.Views
 
         #region Para las Transacciones
         private Boolean FincaForEdit = false;
-        Finca finca;
+        Finca finca = new Finca();
 
-        private void Nuevo()
-        {
-
-            nombreTextBox.Clear();
-
-            cantidadNumeric.Value = 0;
-
-            productorComboBox.SelectedIndex = -1;
-
-            comarcaComboBox.SelectedIndex = -1;
-
-            this.finca = new Finca();
-
-            this.FincaForEdit = false;
-
-            EliminarButton.Enabled = false;
-            
-        }
         private Boolean Validar(Finca finca)
         {
 
@@ -51,7 +36,7 @@ namespace Acopio.Views
         private void Guardar(Finca finca)
         {
 
-            if (!Validar(finca))
+            if (Validar(finca))
             {
 
                 using (var db = new AcopioDb())
@@ -88,10 +73,29 @@ namespace Acopio.Views
             }
 
         }
+
+        private void Nuevo()
+        {
+
+            nombreTextBox.Clear();
+
+            cantidadNumeric.Value = 0;
+
+            productorComboBox.SelectedIndex = -1;
+
+            comarcaComboBox.SelectedIndex = -1;
+
+            this.finca = new Finca();
+
+            this.FincaForEdit = false;
+
+            EliminarButton.Enabled = false;
+
+        }
         private void GuardarCambios()
         {
 
-            if (this.FincaForEdit)
+            if (!this.FincaForEdit)
             {
                 this.Guardar(this.finca);
             }
@@ -121,6 +125,46 @@ namespace Acopio.Views
             this.Nuevo();
 
         }
+
+        private void ComarcaToList()
+        {
+
+            using (var db = new AcopioDb())
+            {
+
+                var comarcaBusiness = new ComarcaBusiness(db);
+
+                comarcaComboBox.DataSource = comarcaBusiness.ToList();
+
+                comarcaComboBox.ValueMember = "ComarcaId";
+
+                comarcaComboBox.DisplayMember = "ComarcaNombre";
+
+                comarcaComboBox.SelectedIndex = -1;
+
+            }
+
+        }
+
+        private void ProductorToList()
+        {
+
+            using (var db = new AcopioDb())
+            {
+
+                var productorBusiness = new ProductorBusiness(db);
+
+                productorComboBox.DataSource = (from p in productorBusiness.ToList() select new { p.ProductorId, ProductorNombre = $"{ p.ProductorNombres } { p.ProductorApellidos }" }).ToList();
+
+                productorComboBox.ValueMember = "ProductorId";
+
+                productorComboBox.DisplayMember = "ProductorNombre";
+
+                productorComboBox.SelectedIndex = -1;
+
+            }
+
+        }
         #endregion
 
         private void NuevoButton_Click(object sender, EventArgs e)
@@ -141,7 +185,7 @@ namespace Acopio.Views
         {
 
             this.Eliminar();
-
+            
         }
 
         private void FincaView_Load(object sender, EventArgs e)
@@ -151,6 +195,84 @@ namespace Acopio.Views
             {
 
                 db.Database.CreateIfNotExists();
+
+            }
+
+            ComarcaToList();
+
+            ProductorToList();
+
+            this.formIsLoaded = true;
+
+        }
+
+        private void nombreTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+            if (!nombreTextBox.Text.Equals(this.finca.FincaNombre))
+            {
+
+                this.finca.FincaNombre = nombreTextBox.Text;
+
+            }
+
+        }
+
+        private void cantidadNumeric_ValueChanged(object sender, EventArgs e)
+        {
+
+            if (!cantidadNumeric.Value.Equals(this.finca.CantidadVacas))
+            {
+
+                this.finca.CantidadVacas = int.Parse(cantidadNumeric.Value.ToString());
+
+            }
+
+        }
+
+        private void productorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (this.formIsLoaded)
+            {
+
+                if (productorComboBox.SelectedIndex != -1)
+                {
+
+                    Guid productorId = Guid.Parse(productorComboBox.SelectedValue.ToString());
+
+                    if (!productorId.Equals(this.finca.ProductorId))
+                    {
+
+                        this.finca.ProductorId = productorId;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        private void comarcaComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (this.formIsLoaded)
+            {
+
+                if (comarcaComboBox.SelectedIndex != -1)
+                {
+
+                    int comarcaId = int.Parse(comarcaComboBox.SelectedValue.ToString());
+
+                    if (!comarcaId.Equals(this.finca.ComarcaId))
+                    {
+
+                        this.finca.ComarcaId = comarcaId;
+
+                    }
+
+                }
 
             }
 
