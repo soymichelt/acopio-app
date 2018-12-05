@@ -38,6 +38,14 @@ namespace Acopio.Business
 
         public Finca GetById(Guid fincaId) => db.Fincas.Find(fincaId);
 
+        public List<Finca> GetList(string filtro = "") => db.Fincas
+            .Where(c =>
+                c.FincaNombre.Contains(filtro) ||
+                c.Comarca.ComarcaNombre.Contains(filtro) ||
+                (c.Productor.ProductorNombres + " " + c.Productor.ProductorApellidos).Contains(filtro)
+            )
+            .ToList();
+
         public void Edit(Finca finca)
         {
 
