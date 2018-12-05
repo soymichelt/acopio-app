@@ -15,7 +15,7 @@ namespace Acopio.Views
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FincaView());
+            Application.Run(new FincaListView());
         }
     }
 }
